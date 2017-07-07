@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { add, remove } from './actions/TodoList.js';
+import TodoItem from './components/TodoItem.js';
 import './App.css';
 
 class App extends Component {
@@ -25,7 +26,8 @@ class App extends Component {
         this.inputs[node.name] = node;
     }
     render() {
-        const list = this.props.list.map((i, index) => <li key={index}>{i.desc}</li>);
+        const list = this.props.list
+            .map((i, index) => <TodoItem item={i} key={index} />);
         return (
             <div>
                 <form action="" onSubmit={this._add}>
