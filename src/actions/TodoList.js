@@ -1,10 +1,10 @@
 export const ADD = 'ADD';
 export const REMOVE = 'REMOVE';
 
-export const add = (item) => {
+export const add = (desc) => {
     return {
         type: ADD,
-        item
+        desc
     };
 };
 

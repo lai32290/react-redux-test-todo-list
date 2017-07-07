@@ -7,23 +7,34 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        this.inputs = {};
+
         this._add = this._add.bind(this);
+        this.applyRef = this.applyRef.bind(this);
     }
 
     _add(e) {
-        const desc = event.target.value;
+        e.preventDefault();
+        const desc = this.inputs.desc.value;
         this.props.add(desc);
+
+        this.inputs.desc.value = '';
+    }
+
+    applyRef(node) {
+        this.inputs[node.name] = node;
     }
     render() {
+        const list = this.props.list.map((i, index) => <li key={index}>{i.desc}</li>);
         return (
             <div>
-                <form>
-                    <input type="text" name="desc" />
-                    <button type="submit" onClick={this.props.add}>Add</button>
+                <form action="" onSubmit={this._add}>
+                    <input type="text" name="desc" ref={this.applyRef}/>
+                    <button type="submit" onClick={this._add}>Add</button>
                 </form>
 
                 <ul>
-                    <li>Item 1</li>
+                    {list}
                 </ul>
             </div>
         );
@@ -36,8 +47,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        add: (item) => {
-            dispatch(add(item));
+        add: (desc) => {
+            dispatch(add(desc));
         },
         remove: (id) => {
             dispatch(remove(id));
