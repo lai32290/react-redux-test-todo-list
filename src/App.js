@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { add, remove } from './actions/TodoList.js';
-import TodoItem from './components/TodoItem.js';
+import TodoForm from './containers/TodoForm.js';
+import TodoList from './components/TodoList.js';
 import './App.css';
 
 class App extends Component {
@@ -26,18 +27,10 @@ class App extends Component {
         this.inputs[node.name] = node;
     }
     render() {
-        const list = this.props.list
-            .map((i, index) => <TodoItem item={i} key={index} />);
         return (
             <div>
-                <form action="" onSubmit={this._add}>
-                    <input type="text" name="desc" ref={this.applyRef}/>
-                    <button type="submit" onClick={this._add}>Add</button>
-                </form>
-
-                <ul>
-                    {list}
-                </ul>
+                <TodoForm />
+                <TodoList items={this.props.list} />
             </div>
         );
     }
